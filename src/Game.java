@@ -10,19 +10,22 @@ public class Game extends JFrame {
     public Game(int difficulty, String nick) { //difficulty = number of trees and size of the game?
         instance = this;
         player = new Player(nick);
-        this.difficulty = difficulty;
+        Duck.setGame(this);
+        Duck.setPlayer(player);
+        long sleep = 1000/(difficulty+1);
 
         getContentPane().setBackground(new Color(108, 241, 205));
         JLabel timeLabel = new JLabel("time: 0s");
-        timeLabel.setFont(new Font("MV Boli",Font.PLAIN,10));
-        timeLabel.setBounds(5,5,20,20);
+        timeLabel.setFont(new Font("MV Boli",Font.PLAIN,13));
+        timeLabel.setBounds(5,5,100,100);
+        timeLabel.setVerticalAlignment(SwingConstants.TOP);
         add(timeLabel);
 
         Thread spawnDuck = new Thread(()->{
-            while (!Thread.interrupted()){
+            while (!Thread.interrupted() && !player.isDead()){
                 add(new Duck(10));
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(sleep);
                 } catch (InterruptedException e) {
                     return;
                 }
@@ -31,7 +34,7 @@ public class Game extends JFrame {
         spawnDuck.start();
 
         Thread countTime = new Thread(()->{
-            while (!Thread.interrupted()){
+            while (!Thread.interrupted() && !player.isDead()){
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -42,6 +45,7 @@ public class Game extends JFrame {
         });
         countTime.start();
 
+        setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

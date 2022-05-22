@@ -4,38 +4,43 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Duck extends JLabel implements MouseListener {
-    boolean isAlive = true;
-    long speed = 50;
-    int hp = 5;
+    private long speed = 50;
+    private int hp = 5;
+    private int points;
+
+    private static Player player = Player.getInstance();
+    private static Game game = Game.getInstance();
 
     public Duck(int speed) {
-        super(new ImageIcon("duck.png"));
+        super(new ImageIcon("duck0.png"));
         this.speed = speed;
 
         switch ((int)(Math.random()*3)){
             case 0->{
-                setIcon(new ImageIcon("duck3.png"));
+                setIcon(new ImageIcon("duck0.png"));
                 hp = 1;
+                points = 1;
             }
             case 1->{
                 setIcon(new ImageIcon("duck1.png"));
                 hp = 3;
+                points = 2;
             }
             case 2->{
                 setIcon(new ImageIcon("duck2.png"));
                 hp = 5;
+                points = 4;
             }
         }
 
         Thread moveDuck = new Thread(()->{
             int x = 0;
             int y = (int)(Math.random()*(500-69));//500 = Game.instance.getHeight()
-            while (!Thread.interrupted() && isAlive){
-                setBounds(x,y,32,32);
-                x++;
-                if(x>Game.getInstance().getWidth()) {
-                    Player.getInstance().takeDamage();
-                    Game.getInstance().remove(this);
+            while (!Thread.interrupted() && !player.isDead()){
+                setBounds(++x,y,32,32);
+                if(x>game.getWidth()) {
+                    player.takeDamage();
+                    game.remove(this);
                     return;
                 }
                 try {
@@ -50,12 +55,21 @@ public class Duck extends JLabel implements MouseListener {
         addMouseListener(this);
     }
 
+    //region getters setters
+    public static void setPlayer(Player player) {
+        Duck.player = player;
+    }
+
+    public static void setGame(Game game) {
+        Duck.game = game;
+    }
+
+    //endregion
     @Override
     public void mousePressed(MouseEvent e) {
         hp--;
-        System.out.println(hp);
         if(hp<=0) {
-            Game game = Game.getInstance();
+            player.addScore(points);
             game.remove(this);
             game.revalidate();
             game.repaint();

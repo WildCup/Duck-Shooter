@@ -56,9 +56,10 @@ public class MyWindow extends JFrame {
         });
 
         scoreButton.addActionListener((e)->{
-            JPanel scoresPanel = new JPanel();
-            JLabel label1 = new JLabel("<html><div style='text-align: center;'><h1>HIGH SCORES CURRENTLY DO NOT WORK :C</h1>stay tuned</div></html>");
+            JPanel scoresPanel = new JPanel(new BorderLayout());
+            JLabel label1 = new JLabel("<html><div style='text-align: center;'><h1>HIGH SCORES <br>CURRENTLY DO NOT WORK :C</h1>stay tuned</div></html>");
 
+            label1.setHorizontalAlignment(SwingConstants.CENTER);
             scoresPanel.add(label1);
 
             JButton button = new JButton("GO BACK");
