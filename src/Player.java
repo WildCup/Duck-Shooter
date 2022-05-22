@@ -43,6 +43,10 @@ public class Player {
         return isDead;
     }
 
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
     //endregion
 
     public static Player getInstance(){
@@ -54,8 +58,8 @@ public class Player {
             Score s = new Score(score, nick,game.getTime(),game.getDifficulty());
             isDead = true;
             JOptionPane.showMessageDialog(null, s, "YOU DIED", JOptionPane.PLAIN_MESSAGE);
-            game.dispose();
-            SwingUtilities.invokeLater(MyWindow::new);
+            MyWindow.goToMenu();
         }
+        System.out.println(hp);
     }
 }

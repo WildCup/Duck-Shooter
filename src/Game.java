@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class Game extends JFrame {
+public class Game extends JPanel {
     private static Game instance;
     private int time;
     private int difficulty;
@@ -17,31 +17,19 @@ public class Game extends JFrame {
         Duck.setPlayer(player);
         long sleep = 1000/(difficulty+1);
 
-        getContentPane().setBackground(new Color(108, 241, 205));
+        setBackground(new Color(108, 241, 205));
         JLabel timeLabel = new JLabel("time: 0s");
         timeLabel.setFont(new Font("MV Boli",Font.PLAIN,13));
         timeLabel.setBounds(5,5,100,100);
         timeLabel.setVerticalAlignment(SwingConstants.TOP);
         add(timeLabel);
 
-//        JMenuItem menuItem = new JMenuItem("Say Hello");
-//        KeyStroke ctrlH = KeyStroke.getKeyStroke(KeyEvent.VK_H, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
-//        menuItem.setAccelerator(ctrlH);
-//        menuItem.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                System.out.println("Hello, World");
-//            }
-//        });
-//        menuItem.setBounds(100,5,40,20);
-//        add(menuItem);
-
-        JButton button = new JButton("hello");
+        JButton button = new JButton("Main menu");
         Action action = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                SwingUtilities.invokeLater(MyWindow::new);
+                player.setDead(true);
+                MyWindow.goToMenu();
             }
         };
 
@@ -78,8 +66,6 @@ public class Game extends JFrame {
         countTime.start();
 
         setLayout(null);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public static Game getInstance() {
