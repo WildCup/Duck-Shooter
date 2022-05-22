@@ -56,7 +56,6 @@ public class Player {
             JOptionPane.showMessageDialog(null, s, "YOU DIED", JOptionPane.PLAIN_MESSAGE);
             game.dispose();
             SwingUtilities.invokeLater(MyWindow::new);
-            Score.printScores();
         }
     }
 }

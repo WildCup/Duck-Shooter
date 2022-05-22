@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class Game extends JFrame {
     private static Game instance;
@@ -20,6 +23,35 @@ public class Game extends JFrame {
         timeLabel.setBounds(5,5,100,100);
         timeLabel.setVerticalAlignment(SwingConstants.TOP);
         add(timeLabel);
+
+//        JMenuItem menuItem = new JMenuItem("Say Hello");
+//        KeyStroke ctrlH = KeyStroke.getKeyStroke(KeyEvent.VK_H, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
+//        menuItem.setAccelerator(ctrlH);
+//        menuItem.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                System.out.println("Hello, World");
+//            }
+//        });
+//        menuItem.setBounds(100,5,40,20);
+//        add(menuItem);
+
+        JButton button = new JButton("hello");
+        Action action = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                SwingUtilities.invokeLater(MyWindow::new);
+            }
+        };
+
+        button.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK),"goBack");
+        button.getActionMap().put("goBack",action);
+
+        button.addActionListener(action);
+
+        button.setBounds(100,5,70,20);
+        add(button);
 
         Thread spawnDuck = new Thread(()->{
             while (!Thread.interrupted() && !player.isDead()){

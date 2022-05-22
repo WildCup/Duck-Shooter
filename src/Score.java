@@ -51,8 +51,8 @@ public class Score implements Serializable {
 
     @Override
     public String toString() {
-        return "Score:" + score + "\n" +
-                nick + " " + date + "\n" +
+        return "Score:" + score + " \n" +
+                nick + " " + date + " \n" +
                 "survived: " + time + "s " +
                 "difficulty:" + difficulty;
     }
@@ -74,6 +74,8 @@ public class Score implements Serializable {
             FileInputStream stream = new FileInputStream("save.txt");
             ObjectInputStream stream2 = new ObjectInputStream(stream);
             SaveData saveData = (SaveData) stream2.readObject();
+            Score.scores.clear();
+            Score.scores = saveData.getScores();
             stream2.close();
             Score.setScores(saveData.getScores());
         } catch (IOException | ClassNotFoundException e) {

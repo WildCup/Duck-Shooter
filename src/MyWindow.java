@@ -62,6 +62,10 @@ public class MyWindow extends JFrame {
             label1.setHorizontalAlignment(SwingConstants.CENTER);
             scoresPanel.add(label1);
 
+            //Jlist
+            JList list = new JList(new HighScoresListModel());
+            scoresPanel.add(new JScrollPane(list));
+
             JButton button = new JButton("GO BACK");
             button.setFont(new Font(Font.SERIF,Font.PLAIN,20));
             button.addActionListener((ev)->{
