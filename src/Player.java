@@ -29,6 +29,7 @@ public class Player {
 
     public void addScore(int points) {
         score += points;
+        Game.getInstance().getScoreLabel().setText("score: " + score);
     }
 
     public String getNick() {
@@ -60,6 +61,6 @@ public class Player {
             JOptionPane.showMessageDialog(null, s, "YOU DIED", JOptionPane.PLAIN_MESSAGE);
             MyWindow.goToMenu();
         }
-        System.out.println(hp);
+        Game.getInstance().getHpBar().setValue(hp);
     }
 }
