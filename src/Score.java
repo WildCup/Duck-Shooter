@@ -25,6 +25,7 @@ public class Score implements Serializable {
         for (int i = 0; i < scores.size(); i++) {
             if (scores.get(i).score < score) {
                 scores.add(i, this);
+                save();
                 return;
             }
         }
@@ -34,7 +35,7 @@ public class Score implements Serializable {
 
     static void printScores() {
         for (Score s : scores) {
-            System.out.println(s.score + " " + s.date);
+            System.out.println(s.score + " " + s.nick);
         }
         System.out.println("................");
     }
@@ -53,8 +54,21 @@ public class Score implements Serializable {
     public String toString() {
         return "Score:" + score + " \n" +
                 nick + " " + date + " \n" +
-                "survived: " + time + "s " +
-                "difficulty:" + difficulty;
+                "time: " + time + "s " +
+                "lvl:" + difficulty;
+    }
+    public String toStringNice() {
+        String returnMe = "Score:" + score;
+        while (returnMe.length()<13) returnMe += " ";
+        returnMe += nick;
+        while (returnMe.length()<27) returnMe += " ";
+        returnMe += "time: " + time + "s";
+        while (returnMe.length()<40) returnMe += " ";
+        returnMe += "lvl:" + difficulty;
+        while (returnMe.length()<48) returnMe += " ";
+        returnMe += date;
+
+        return returnMe;
     }
 
     public static void save() {
@@ -65,7 +79,7 @@ public class Score implements Serializable {
             stream2.flush();
             stream2.close();
         } catch (IOException e) {
-            System.out.println("File not found ?");
+            System.out.println("saving didn't work ?");
         }
     }
 
@@ -79,7 +93,7 @@ public class Score implements Serializable {
             stream2.close();
             Score.setScores(saveData.getScores());
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File not found ?");
         }
     }
 }

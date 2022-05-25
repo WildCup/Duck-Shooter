@@ -64,6 +64,18 @@ public class MyWindow extends JFrame {
 
             //Jlist
             JList list = new JList(new HighScoresListModel());
+            list.setCellRenderer(new ListCellRenderer<Score>() {
+                @Override
+                public Component getListCellRendererComponent(JList list, Score value, int index, boolean isSelected, boolean cellHasFocus) {
+                    JLabel label = new JLabel((index + 1) + ".  " + value.toStringNice());
+                    String text = (index + 1) + ".";
+                    while (text.length()<4) text += " ";
+                    text += value.toStringNice();
+                    label.setText(text);
+                    label.setFont(new Font("Courier New",Font.PLAIN,13));
+                    return label;
+                }
+            });
             scoresPanel.add(new JScrollPane(list));
 
             JButton button = new JButton("GO BACK");
@@ -82,7 +94,7 @@ public class MyWindow extends JFrame {
             repaint();
         });
 
-        exitButton.addActionListener((e) -> dispose());
+        exitButton.addActionListener((e) -> System.exit(0));
 
         mainPanel.add(playButton, gbc);
         mainPanel.add(scoreButton, gbc);

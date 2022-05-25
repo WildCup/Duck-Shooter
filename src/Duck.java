@@ -17,7 +17,7 @@ public class Duck extends JLabel implements MouseListener {
         super(new ImageIcon("Images\\duck0.png"));
         if(Math.random()>0.5) goRight = true;
 
-        switch ((int)(Math.random()*3)){
+        switch ((int)(Math.random()*4)){
             case 0->{
                 if(goRight) setIcon(new ImageIcon("Images\\duck0Right.png"));
                 else setIcon(new ImageIcon("Images\\duck0.png"));
@@ -35,6 +35,12 @@ public class Duck extends JLabel implements MouseListener {
                 else setIcon(new ImageIcon("Images\\duck2.png"));
                 hp = 5;
                 points = 4;
+            }
+            case 3->{
+                if(goRight) setIcon(new ImageIcon("Images\\duck3Right.png"));
+                else setIcon(new ImageIcon("Images\\duck3.png"));
+                hp = 10;
+                points = 8;
             }
         }
 
@@ -85,7 +91,7 @@ public class Duck extends JLabel implements MouseListener {
     //endregion
     @Override
     public void mousePressed(MouseEvent e) {
-        hp--;
+        hp -= Player.getInstance().getDmg();
         if(hp<=0) {
             player.addScore(points);
             game.remove(this);
@@ -93,6 +99,7 @@ public class Duck extends JLabel implements MouseListener {
             game.repaint();
             moveDuck.interrupt();
         }
+        System.out.println("duck hp: " + hp);
     }
     //region unneeded
     @Override
