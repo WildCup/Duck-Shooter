@@ -1,5 +1,9 @@
-# Qubes
+# Duck Shooter
 
-Project 2 - from my univercity
+Project 2 - for my university
 
-more details later 
+Shooting the ducks.
+Simple improvement system and floating obstacles.
+Saving ranking.
+
+Using swings, threads, serialization.

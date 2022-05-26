@@ -1,8 +1,5 @@
 import javax.swing.*;
-import javax.swing.plaf.multi.MultiButtonUI;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MyWindow extends JFrame {
     private Game game;

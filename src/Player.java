@@ -20,35 +20,20 @@ public class Player {
     }
 
     //region getters and setters
-    public int getHp() {
-        return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
     public int getDmg() {
         return dmg;
     }
 
     public void upgradeDmg() {
-        addScore(-dmg * 10);
+        int cost = -dmg * 10;
         dmg++;
+        addScore(cost);
     }
 
     public void addScore(int points) {
         score += points;
         Game.getInstance().getScoreLabel().setText("points: " + score);
         if(dmg < 5) Game.getInstance().getUpgradeButton().setEnabled(score >= dmg * 10);
-    }
-
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
     }
 
     public boolean isDead() {
